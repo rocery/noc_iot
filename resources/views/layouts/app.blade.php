@@ -4,29 +4,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    @vite('resources/css/app.css') <!-- Local Tailwind -->
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-blue-500 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="/" class="text-white text-xl font-bold">My App</a>
-            <div>
+<body class="bg-gray-100 text-gray-800">
+
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-blue-600 text-2xl font-semibold">My App</a>
+            <div class="space-x-4">
                 @guest
-                    <a href="{{ route('login') }}" class="text-white mr-4">Login</a>
-                    <a href="{{ route('register') }}" class="text-white">Register</a>
+                    <a href="{{ route('login') }}" class="text-blue-600 hover:underline">Login</a>
+                    <a href="{{ route('register') }}" class="text-blue-600 hover:underline">Register</a>
                 @else
-                    <a href="{{ route('account') }}" class="text-white mr-4">{{ Auth::user()->name }}</a>
+                    <a href="{{ route('account') }}" class="text-blue-600 font-medium">{{ Auth::user()->name }}</a>
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
-                        <button type="submit" class="text-white">Logout</button>
+                        <button type="submit" class="text-red-500 hover:underline">Logout</button>
                     </form>
                 @endguest
             </div>
         </div>
     </nav>
 
-    <div class="container mx-auto mt-4">
+    <main class="max-w-7xl mx-auto mt-6 px-4">
         @yield('content')
-    </div>
+    </main>
+
 </body>
 </html>
